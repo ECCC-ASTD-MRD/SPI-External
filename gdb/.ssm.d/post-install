@@ -1,0 +1,26 @@
+#!/usr/bin/env python
+
+import os
+import string
+import sys
+
+#
+# Doit appeler le create_config_bin de pkginfo avec certains parametres
+# pour que celui-ci puisse creer le <pkgname>-config local qui appelera le
+# pkginfo-config central.
+#
+
+package_home  = sys.argv[2]
+package_name  = os.path.basename(package_home)
+
+index_delim_1 = string.find(package_name,"_")
+software_name = package_name[:index_delim_1]
+
+status = os.system("which create_config_bin > /dev/null")
+
+if status == 0:
+    print "Generating " + software_name + "-config binary"
+    os.system("create_config_bin " + package_home)
+else:
+    print sys.argv[0] + ": Error: create_config_bin wasn't found."
+    print "Won't generate the " + software_name + "-config binary."

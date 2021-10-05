@@ -1,0 +1,1 @@
+cmd='cd;/users/dor/afsr/005/Projects/SPI/libSPI/ext/tcl8.6.6/unix;&&;./configure;--enable-threads;--enable-shared;--prefix=/usr/local'

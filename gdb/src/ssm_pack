@@ -1,0 +1,66 @@
+#!/bin/ksh
+
+set -x
+
+#export PKG_VERNO="1.2.2"
+#export PKG_VER="gdb-$PKG_VERNO"
+#export PKG_SSMVER=gdb_$PKG_VERNO
+
+export PKG_UPDATE="15-07-2014"
+PKG_NAME="gdb"
+PKG_VERNO="1.2.2"
+
+. $HOME/.profile.env/ssm_pkg_filename.sh
+
+
+#LSB=`which lsb_release`
+#if [ -z $LSB ]
+#then
+#   rel=`cat /proc/version | awk '{split($3,a,"."); b=a[1]a[2]; print b; }'`;
+#   export HOSTTYPE=linux$rel-`uname -m | sed 's/_/-/'` ;
+#else
+#   id=`lsb_release -si | tr '[A-Z]' '[a-z'`
+#   rel=`lsb_release -sr`
+#   ver=`lsb_release -sv | awk -F ':' 'BEGIN {} END { print $1}' | awk -F '-' 'BEGIN {} END { print $3}' `
+#   arch=`arch | awk -F '_' 'BEGIN {} END { print $2}'`
+#   export HOSTTYPE="$id-$rel-$ver-$arch"
+#fi
+
+
+export OS=$HOSTTYPE
+echo "OS=$OS"
+PKGDIR=./package/${PKG_SSMVER}
+rm -rf ${PKGDIR}
+if [ ! -d ${PKGDIR} ]; 
+then
+	mkdir -p ${PKGDIR}
+	mkdir -p ${PKGDIR}/bin
+fi
+
+cp -r ./lib ${PKGDIR}
+cp -r ./include ${PKGDIR}
+
+cp -r ./etc ${PKGDIR}
+cp -r .ssm.d ${PKGDIR}
+cat >> ${PKGDIR}/.ssm.d/control << EOF
+Package: gdb
+Version: ${PKG_VERNO}
+Platform: ${HOSTTYPE}
+Maintainer: Vanh.Souvanlasy@ec.gc.ca
+BuildInfo: ${PKG_UPDATE}
+Description: CMDS Geography Database Library for Developpers
+EOF
+
+#
+# tar
+#
+cd package
+ UDS="_"
+ PKG_FN=${PKG_SSMVER}_${HOSTTYPE}
+ mv $PKG_SSMVER $PKG_FN
+
+ tar -cvf $PKG_FN.tar $PKG_FN
+ gzip $PKG_FN.tar
+ mv $PKG_FN.tar.gz $PKG_FN.ssm
+ echo "Removing: $PKG_FN"
+ rm -r -f ./$PKG_FN
