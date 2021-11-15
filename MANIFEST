@@ -13,5 +13,5 @@ TCLTLS  = 1.7.12
 TKTABLE = 2.10.0
 TKDND   = 2.8.0
 TDOM    = 0.8.2
-MESA    = 7.9.2
+MESA    = 13.0.6
 TKIMG   = 1.4.6
