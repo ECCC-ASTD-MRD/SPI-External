@@ -33,7 +33,9 @@ ExternalProject_Add(mesa
       --disable-dri
       --disable-gles1
       --disable-gles2
+      --disable-shader-cache
       --with-gallium-drivers=swrast 
+      --disable-gallium-llvm
       --prefix=${CMAKE_INSTALL_PREFIX}/GL
    PREFIX ${CMAKE_CURRENT_BINARY_DIR}/GL
    BUILD_IN_SOURCE ON
