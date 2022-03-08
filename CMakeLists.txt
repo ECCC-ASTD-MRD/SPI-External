@@ -23,28 +23,30 @@ ExternalProject_Add(gdb
    INSTALL_COMMAND mkdir -p ${CMAKE_INSTALL_PREFIX}/lib && cp -d libgdb.a ${CMAKE_INSTALL_PREFIX}/lib && mkdir -p ${CMAKE_INSTALL_PREFIX}/include && cp -d gdb.h declare.h ${CMAKE_INSTALL_PREFIX}/include) 
 
 # Build Mesa GL
-ExternalProject_Add(mesa
-   SOURCE_DIR ${CMAKE_CURRENT_SOURCE_DIR}/mesa-${MESA_REQ_VERSION}    
-   CONFIGURE_COMMAND cd ${CMAKE_CURRENT_SOURCE_DIR}/mesa-${MESA_REQ_VERSION} && ./configure 
-      CC=${CMAKE_C_COMPILER} CXX=${CMAKE_CXX_COMPILER}
-      --disable-egl
-      --disable-driglx-direct
-      --enable-glx=xlib
-      --disable-dri
-      --disable-gles1
-      --disable-gles2
-      --disable-shader-cache
-      --with-gallium-drivers=swrast 
-      --disable-gallium-llvm
-      --prefix=${CMAKE_INSTALL_PREFIX}/GL
-   PREFIX ${CMAKE_CURRENT_BINARY_DIR}/GL
-   BUILD_IN_SOURCE ON
-   BUILD_ALWAYS OFF
-   BUILD_COMMAND make 
-   INSTALL_COMMAND make install) 
-#mesa-9.2      ./configure --prefix=${LIB_PATH}/GL --disable-egl --disable-driglx-direct --disable-gallium --with-x --with-driver=xlib  
-#mesa-13+      ./configure --prefix=${LIB_PATH}/GL --disable-egl --disable-driglx-direct --enable-glx=xlib -disable-dri --with-gallium-drivers=swrast 
-#mesa-18+      ./configure --prefix=${LIB_PATH}/GL --disable-egl --disable-driglx-direct --enable-glx=xlib --enable-xlib-glx --disable-dri --disable-vdpau --disable-opencl --disable-gallium-llvm --disable-gbm --disable-shared-glapi --with-gallium-drivers=swrast 
+if(BUILD_MESAGL)
+   ExternalProject_Add(mesa
+      SOURCE_DIR ${CMAKE_CURRENT_SOURCE_DIR}/mesa-${MESA_REQ_VERSION}    
+      CONFIGURE_COMMAND cd ${CMAKE_CURRENT_SOURCE_DIR}/mesa-${MESA_REQ_VERSION} && ./configure 
+         CC=${CMAKE_C_COMPILER} CXX=${CMAKE_CXX_COMPILER}
+         --disable-egl
+         --disable-driglx-direct
+         --enable-glx=xlib
+         --disable-dri
+         --disable-gles1
+         --disable-gles2
+         --disable-shader-cache
+         --with-gallium-drivers=swrast 
+         --disable-gallium-llvm
+         --prefix=${CMAKE_INSTALL_PREFIX}/GL
+      PREFIX ${CMAKE_CURRENT_BINARY_DIR}/GL
+      BUILD_IN_SOURCE ON
+      BUILD_ALWAYS OFF
+      BUILD_COMMAND make 
+      INSTALL_COMMAND make install) 
+   #mesa-9.2      ./configure --prefix=${LIB_PATH}/GL --disable-egl --disable-driglx-direct --disable-gallium --with-x --with-driver=xlib  
+   #mesa-13+      ./configure --prefix=${LIB_PATH}/GL --disable-egl --disable-driglx-direct --enable-glx=xlib -disable-dri --with-gallium-drivers=swrast 
+   #mesa-18+      ./configure --prefix=${LIB_PATH}/GL --disable-egl --disable-driglx-direct --enable-glx=xlib --enable-xlib-glx --disable-dri --disable-vdpau --disable-opencl --disable-gallium-llvm --disable-gbm --disable-shared-glapi --with-gallium-drivers=swrast 
+endif()
 
 # Build Tcl/Tk
 if(CMAKE_SYSTEM_NAME STREQUAL Linux)
@@ -61,6 +63,7 @@ ExternalProject_Add(tcl
       --enable-shared 
       --enable-64bit
       --prefix=${CMAKE_INSTALL_PREFIX}/TCL  
+   COMMAND mkdir -f ${CMAKE_CURRENT_BINARY_DIR}/GL
    PREFIX ${CMAKE_CURRENT_BINARY_DIR}/TCL
    BUILD_IN_SOURCE ON
    BUILD_ALWAYS OFF
