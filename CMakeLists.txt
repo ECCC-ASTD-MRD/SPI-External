@@ -63,7 +63,7 @@ ExternalProject_Add(tcl
       --enable-shared 
       --enable-64bit
       --prefix=${CMAKE_INSTALL_PREFIX}/TCL  
-   COMMAND mkdir -f ${CMAKE_CURRENT_BINARY_DIR}/GL
+   COMMAND mkdir -p ${CMAKE_CURRENT_BINARY_DIR}/GL
    PREFIX ${CMAKE_CURRENT_BINARY_DIR}/TCL
    BUILD_IN_SOURCE ON
    BUILD_ALWAYS OFF
