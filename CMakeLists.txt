@@ -23,6 +23,7 @@ ExternalProject_Add(gdb
    INSTALL_COMMAND mkdir -p ${CMAKE_INSTALL_PREFIX}/lib && cp -d libgdb.a ${CMAKE_INSTALL_PREFIX}/lib && mkdir -p ${CMAKE_INSTALL_PREFIX}/include && cp -d gdb.h declare.h ${CMAKE_INSTALL_PREFIX}/include) 
 
 # Build Mesa GL
+option(BUILD_MESAGL "Build MESA for software rendering support" ON)
 if(BUILD_MESAGL)
    ExternalProject_Add(mesa
       SOURCE_DIR ${CMAKE_CURRENT_SOURCE_DIR}/mesa-${MESA_REQ_VERSION}    
