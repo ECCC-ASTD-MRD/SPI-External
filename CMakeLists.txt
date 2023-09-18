@@ -26,8 +26,8 @@ ExternalProject_Add(gdb
 option(BUILD_MESAGL "Build MESA for software rendering support" ON)
 if(BUILD_MESAGL)
    ExternalProject_Add(mesa
-      SOURCE_DIR ${CMAKE_CURRENT_SOURCE_DIR}/mesa-${MESA_REQ_VERSION}    
-      CONFIGURE_COMMAND cd ${CMAKE_CURRENT_SOURCE_DIR}/mesa-${MESA_REQ_VERSION} && ./configure 
+      SOURCE_DIR ${CMAKE_CURRENT_SOURCE_DIR}/mesa-${MESA_REQ_VERSION}
+      CONFIGURE_COMMAND cd ${CMAKE_CURRENT_SOURCE_DIR}/mesa-${MESA_REQ_VERSION} && autoreconf -f && ./configure
          CC=${CMAKE_C_COMPILER} CXX=${CMAKE_CXX_COMPILER}
          --disable-egl
          --disable-driglx-direct
@@ -36,14 +36,14 @@ if(BUILD_MESAGL)
          --disable-gles1
          --disable-gles2
          --disable-shader-cache
-         --with-gallium-drivers=swrast 
+         --with-gallium-drivers=swrast
          --disable-gallium-llvm
          --prefix=${CMAKE_INSTALL_PREFIX}/GL
       PREFIX ${CMAKE_CURRENT_BINARY_DIR}/GL
       BUILD_IN_SOURCE ON
       BUILD_ALWAYS OFF
       BUILD_COMMAND make 
-      INSTALL_COMMAND make install) 
+      INSTALL_COMMAND make install)
    #mesa-9.2      ./configure --prefix=${LIB_PATH}/GL --disable-egl --disable-driglx-direct --disable-gallium --with-x --with-driver=xlib  
    #mesa-13+      ./configure --prefix=${LIB_PATH}/GL --disable-egl --disable-driglx-direct --enable-glx=xlib -disable-dri --with-gallium-drivers=swrast 
    #mesa-18+      ./configure --prefix=${LIB_PATH}/GL --disable-egl --disable-driglx-direct --enable-glx=xlib --enable-xlib-glx --disable-dri --disable-vdpau --disable-opencl --disable-gallium-llvm --disable-gbm --disable-shared-glapi --with-gallium-drivers=swrast 
