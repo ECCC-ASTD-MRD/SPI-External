@@ -79,7 +79,7 @@ ExternalProject_Add(tk
       --enable-threads 
       --enable-shared 
       --enable-64bit
-      --prefix=${CMAKE_INSTALL_PREFIX}/TCL/
+      --prefix=${CMAKE_INSTALL_PREFIX}/TCL
       --with-tcl=${CMAKE_INSTALL_PREFIX}/TCL/lib 
       --enable-xft=no 
    #----- Remove visibility-hidden flag from makefile for glCanvas to work
@@ -106,16 +106,25 @@ ExternalProject_Add(tcltls
    INSTALL_COMMAND make install) 
 
 # Build TclLib
+string(REGEX REPLACE "\\.[^.]+$" "" tcl_version ${TCL_REQ_VERSION})
 ExternalProject_Add(tcllib
    DEPENDS tcl
    SOURCE_DIR ${CMAKE_CURRENT_SOURCE_DIR}/tcllib-${TCLLIB_REQ_VERSION} 
    CONFIGURE_COMMAND ./configure 
-      --prefix=${CMAKE_INSTALL_PREFIX}/TCL 
+      --prefix=${CMAKE_INSTALL_PREFIX}/TCL
+      --with-tclsh=${CMAKE_INSTALL_PREFIX}/TCL/bin/tclsh${tcl_version}
+      TCL_LIBRARY=${CMAKE_INSTALL_PREFIX}/TCL/lib
+      TCLLIBPATH=${CMAKE_INSTALL_PREFIX}/TCL/lib
+      LD_LIBRARY_PATH=${CMAKE_INSTALL_PREFIX}/TCL/lib:$ENV{LD_LIBRARY_PATH}
    PREFIX ${CMAKE_CURRENT_BINARY_DIR}/TCL
    BUILD_IN_SOURCE ON
    BUILD_ALWAYS OFF
    BUILD_COMMAND ""
-   INSTALL_COMMAND make install) 
+   INSTALL_COMMAND make install
+      TCL_LIBRARY=${CMAKE_INSTALL_PREFIX}/TCL/lib
+      TCLLIBPATH=${CMAKE_INSTALL_PREFIX}/TCL/lib
+      LD_LIBRARY_PATH=${CMAKE_INSTALL_PREFIX}/TCL/lib:$ENV{LD_LIBRARY_PATH}
+   )
 
 # Build TkTable
 ExternalProject_Add(tktable
