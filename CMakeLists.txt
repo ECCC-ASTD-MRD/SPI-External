@@ -10,8 +10,6 @@ ec_parse_manifest()   # Parse MANIFEST file
 project(${NAME} DESCRIPTION "${DESCRIPTION}")
 set(PROJECT_VERSION ${VERSION})
 
-ec_install_prefix(${NAME} ${VERSION})  # Define install prefix
-
 # Build GDB
 ExternalProject_Add(gdb
    SOURCE_DIR ${CMAKE_CURRENT_SOURCE_DIR}/gdb/src
