@@ -28,7 +28,7 @@
 /*
  * External functions
  */
-
+extern const SSL_METHOD *SSLv3_method();
 /*
  * Forward declarations
  */

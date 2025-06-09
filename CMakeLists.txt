@@ -56,9 +56,13 @@ else()
    set(subdir macosx)
 endif()
 
+# Fixes issues on RHEL-9
+set(ENV{ac_cv_func_strtod} yes)
+set(ENV{tcl_cv_strtod_buggy} 1)
+
 ExternalProject_Add(tcl
    SOURCE_DIR ${CMAKE_CURRENT_SOURCE_DIR}/tcl${TCL_REQ_VERSION}/${subdir}     
-   CONFIGURE_COMMAND ./configure 
+   CONFIGURE_COMMAND ./configure
       CC=${CMAKE_C_COMPILER} CXX=${CMAKE_CXX_COMPILER}
       --enable-threads 
       --enable-shared 
