@@ -2439,7 +2439,8 @@ AC_DEFUN([SC_BUGGY_STRTOD], [
     if test "$tcl_strtod" = 1; then
 	AC_CACHE_CHECK([for Solaris2.4/Tru64 strtod bugs], tcl_cv_strtod_buggy,[
 	    AC_TRY_RUN([
-		extern double strtod();
+		#include <stdlib.h>
+		//extern double strtod();
 		int main() {
 		    char *infString="Inf", *nanString="NaN", *spaceString=" ";
 		    char *term;
