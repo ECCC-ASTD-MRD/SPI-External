@@ -25,7 +25,7 @@ option(BUILD_MESAGL "Build MESA for software rendering support" ON)
 if(BUILD_MESAGL)
    ExternalProject_Add(mesa
       SOURCE_DIR ${CMAKE_CURRENT_SOURCE_DIR}/mesa-${MESA_REQ_VERSION}
-      CONFIGURE_COMMAND cd ${CMAKE_CURRENT_SOURCE_DIR}/mesa-${MESA_REQ_VERSION} && autoreconf -f && ./configure
+      CONFIGURE_COMMAND autoreconf -f && ./configure
          CC=${CMAKE_C_COMPILER} CXX=${CMAKE_CXX_COMPILER}
          --disable-egl
          --disable-driglx-direct
@@ -59,8 +59,8 @@ set(ENV{ac_cv_func_strtod} yes)
 set(ENV{tcl_cv_strtod_buggy} 1)
 
 ExternalProject_Add(tcl
-   SOURCE_DIR ${CMAKE_CURRENT_SOURCE_DIR}/tcl${TCL_REQ_VERSION}/${subdir}     
-   CONFIGURE_COMMAND ./configure
+   SOURCE_DIR ${CMAKE_CURRENT_SOURCE_DIR}/tcl${TCL_REQ_VERSION}/${subdir}
+   CONFIGURE_COMMAND autoreconf -f && ./configure
       CC=${CMAKE_C_COMPILER} CXX=${CMAKE_CXX_COMPILER}
       --enable-threads
       --enable-shared
@@ -76,7 +76,7 @@ ExternalProject_Add(tcl
 ExternalProject_Add(tk
    DEPENDS tcl
    SOURCE_DIR ${CMAKE_CURRENT_SOURCE_DIR}/tk${TCL_REQ_VERSION}/${subdir}
-   CONFIGURE_COMMAND cd ${CMAKE_CURRENT_SOURCE_DIR}/tk${TCL_REQ_VERSION}/${subdir} && ./configure
+   CONFIGURE_COMMAND autoreconf -f && ./configure
       CC=${CMAKE_C_COMPILER} CXX=${CMAKE_CXX_COMPILER}
       --enable-threads
       --enable-shared
@@ -97,7 +97,7 @@ ExternalProject_Add(tk
 ExternalProject_Add(tcltls
    DEPENDS tcl
    SOURCE_DIR ${CMAKE_CURRENT_SOURCE_DIR}/tcltls-${TCLTLS_REQ_VERSION}
-   CONFIGURE_COMMAND cd ${CMAKE_CURRENT_SOURCE_DIR}/tcltls-${TCLTLS_REQ_VERSION} && ./configure
+   CONFIGURE_COMMAND autoreconf -f && ./configure
       CC=${CMAKE_C_COMPILER} CXX=${CMAKE_CXX_COMPILER}
       --prefix=${CMAKE_INSTALL_PREFIX}/TCL
       --with-tcl=${CMAKE_INSTALL_PREFIX}/TCL/lib
@@ -112,7 +112,7 @@ string(REGEX REPLACE "\\.[^.]+$" "" tcl_version ${TCL_REQ_VERSION})
 ExternalProject_Add(tcllib
    DEPENDS tcl
    SOURCE_DIR ${CMAKE_CURRENT_SOURCE_DIR}/tcllib-${TCLLIB_REQ_VERSION}
-   CONFIGURE_COMMAND ./configure
+   CONFIGURE_COMMAND autoreconf -f && ./configure
       --prefix=${CMAKE_INSTALL_PREFIX}/TCL
       --with-tclsh=${CMAKE_INSTALL_PREFIX}/TCL/bin/tclsh${tcl_version}
       TCL_LIBRARY=${CMAKE_INSTALL_PREFIX}/TCL/lib
@@ -132,7 +132,7 @@ ExternalProject_Add(tcllib
 ExternalProject_Add(tktable
    DEPENDS tcl tk
    SOURCE_DIR ${CMAKE_CURRENT_SOURCE_DIR}/Tktable-${TKTABLE_REQ_VERSION}
-   CONFIGURE_COMMAND cd ${CMAKE_CURRENT_SOURCE_DIR}/Tktable-${TKTABLE_REQ_VERSION} && ./configure
+   CONFIGURE_COMMAND autoreconf -f && ./configure
       CC=${CMAKE_C_COMPILER} CXX=${CMAKE_CXX_COMPILER}
       --enable-threads
       --enable-64bit
@@ -148,7 +148,7 @@ ExternalProject_Add(tktable
 ExternalProject_Add(tkdnd
    DEPENDS tcl tk
    SOURCE_DIR ${CMAKE_CURRENT_SOURCE_DIR}/tkdnd-${TKDND_REQ_VERSION}
-   CONFIGURE_COMMAND cd ${CMAKE_CURRENT_SOURCE_DIR}/tkdnd-${TKDND_REQ_VERSION} && ./configure
+   CONFIGURE_COMMAND autoreconf -f && ./configure
       CC=${CMAKE_C_COMPILER} CXX=${CMAKE_CXX_COMPILER}
       --enable-threads
       --enable-64bit
@@ -164,7 +164,7 @@ ExternalProject_Add(tkdnd
 ExternalProject_Add(tdom
    DEPENDS tcl
    SOURCE_DIR ${CMAKE_CURRENT_SOURCE_DIR}/tdom-${TDOM_REQ_VERSION}
-   CONFIGURE_COMMAND cd ${CMAKE_CURRENT_SOURCE_DIR}/tdom-${TDOM_REQ_VERSION} && ./configure
+   CONFIGURE_COMMAND autoreconf -f && ./configure
       CC=${CMAKE_C_COMPILER} CXX=${CMAKE_CXX_COMPILER}
       --enable-threads
       --enable-64bit
