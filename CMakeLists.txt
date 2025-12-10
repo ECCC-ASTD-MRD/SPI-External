@@ -65,6 +65,7 @@ ExternalProject_Add(tcl
       --enable-threads
       --enable-shared
       --enable-64bit
+      --disable-rpath
       --prefix=${CMAKE_INSTALL_PREFIX}/TCL
    COMMAND mkdir -p ${CMAKE_INSTALL_PREFIX}/GL
    PREFIX ${CMAKE_CURRENT_BINARY_DIR}/TCL
@@ -81,6 +82,7 @@ ExternalProject_Add(tk
       --enable-threads
       --enable-shared
       --enable-64bit
+      --disable-rpath
       --prefix=${CMAKE_INSTALL_PREFIX}/TCL
       --with-tcl=${CMAKE_INSTALL_PREFIX}/TCL/lib
       --enable-xft=no
@@ -99,6 +101,7 @@ ExternalProject_Add(tcltls
    SOURCE_DIR ${CMAKE_CURRENT_SOURCE_DIR}/tcltls-${TCLTLS_REQ_VERSION}
    CONFIGURE_COMMAND autoreconf -f && ./configure
       CC=${CMAKE_C_COMPILER} CXX=${CMAKE_CXX_COMPILER}
+      --disable-rpath
       --prefix=${CMAKE_INSTALL_PREFIX}/TCL
       --with-tcl=${CMAKE_INSTALL_PREFIX}/TCL/lib
    PREFIX ${CMAKE_CURRENT_BINARY_DIR}/TCL
@@ -115,6 +118,7 @@ ExternalProject_Add(tcllib
    CONFIGURE_COMMAND autoreconf -f && ./configure
       --prefix=${CMAKE_INSTALL_PREFIX}/TCL
       --with-tclsh=${CMAKE_INSTALL_PREFIX}/TCL/bin/tclsh${tcl_version}
+      --disable-rpath
       TCL_LIBRARY=${CMAKE_INSTALL_PREFIX}/TCL/lib
       TCLLIBPATH=${CMAKE_INSTALL_PREFIX}/TCL/lib
       LD_LIBRARY_PATH=${CMAKE_INSTALL_PREFIX}/TCL/lib:$ENV{LD_LIBRARY_PATH}
@@ -136,6 +140,7 @@ ExternalProject_Add(tktable
       CC=${CMAKE_C_COMPILER} CXX=${CMAKE_CXX_COMPILER}
       --enable-threads
       --enable-64bit
+      --disable-rpath
       --prefix=${CMAKE_INSTALL_PREFIX}/TCL
       --with-tcl=${CMAKE_INSTALL_PREFIX}/TCL/lib
    PREFIX ${CMAKE_CURRENT_BINARY_DIR}/TCL
@@ -152,6 +157,7 @@ ExternalProject_Add(tkdnd
       CC=${CMAKE_C_COMPILER} CXX=${CMAKE_CXX_COMPILER}
       --enable-threads
       --enable-64bit
+      --disable-rpath
       --prefix=${CMAKE_INSTALL_PREFIX}/TCL
       --with-tcl=${CMAKE_INSTALL_PREFIX}/TCL/lib
    PREFIX ${CMAKE_CURRENT_BINARY_DIR}/TCL
@@ -168,6 +174,7 @@ ExternalProject_Add(tdom
       CC=${CMAKE_C_COMPILER} CXX=${CMAKE_CXX_COMPILER}
       --enable-threads
       --enable-64bit
+      --disable-rpath
       --prefix=${CMAKE_INSTALL_PREFIX}/TCL
       --with-tcl=${CMAKE_INSTALL_PREFIX}/TCL/lib
       --with-tclinclude=${CMAKE_INSTALL_PREFIX}/TCL/include
