@@ -10,6 +10,9 @@ ec_parse_manifest()   # Parse MANIFEST file
 project(${NAME} DESCRIPTION "${DESCRIPTION}")
 set(PROJECT_VERSION ${VERSION})
 
+enable_language(C)
+include(ec_compiler_presets)
+
 # Build GDB
 ExternalProject_Add(gdb
    SOURCE_DIR ${CMAKE_CURRENT_SOURCE_DIR}/gdb/src
@@ -62,6 +65,7 @@ ExternalProject_Add(tcl
    SOURCE_DIR ${CMAKE_CURRENT_SOURCE_DIR}/tcl${TCL_REQ_VERSION}/${subdir}
    CONFIGURE_COMMAND autoreconf -f && ./configure
       CC=${CMAKE_C_COMPILER} CXX=${CMAKE_CXX_COMPILER}
+      LDFLAGS=-Wl,-rpath,${CMAKE_INSTALL_RPATH}
       --enable-threads
       --enable-shared
       --enable-64bit
@@ -79,6 +83,7 @@ ExternalProject_Add(tk
    SOURCE_DIR ${CMAKE_CURRENT_SOURCE_DIR}/tk${TCL_REQ_VERSION}/${subdir}
    CONFIGURE_COMMAND autoreconf -f && ./configure
       CC=${CMAKE_C_COMPILER} CXX=${CMAKE_CXX_COMPILER}
+      LDFLAGS=-Wl,-rpath,${CMAKE_INSTALL_RPATH}
       --enable-threads
       --enable-shared
       --enable-64bit
@@ -101,6 +106,7 @@ ExternalProject_Add(tcltls
    SOURCE_DIR ${CMAKE_CURRENT_SOURCE_DIR}/tcltls-${TCLTLS_REQ_VERSION}
    CONFIGURE_COMMAND autoreconf -f && ./configure
       CC=${CMAKE_C_COMPILER} CXX=${CMAKE_CXX_COMPILER}
+      LDFLAGS=-Wl,-rpath,${CMAKE_INSTALL_RPATH}
       --disable-rpath
       --prefix=${CMAKE_INSTALL_PREFIX}/TCL
       --with-tcl=${CMAKE_INSTALL_PREFIX}/TCL/lib
@@ -138,6 +144,7 @@ ExternalProject_Add(tktable
    SOURCE_DIR ${CMAKE_CURRENT_SOURCE_DIR}/Tktable-${TKTABLE_REQ_VERSION}
    CONFIGURE_COMMAND autoreconf -f && ./configure
       CC=${CMAKE_C_COMPILER} CXX=${CMAKE_CXX_COMPILER}
+      LDFLAGS=-Wl,-rpath,${CMAKE_INSTALL_RPATH}
       --enable-threads
       --enable-64bit
       --disable-rpath
@@ -155,6 +162,7 @@ ExternalProject_Add(tkdnd
    SOURCE_DIR ${CMAKE_CURRENT_SOURCE_DIR}/tkdnd-${TKDND_REQ_VERSION}
    CONFIGURE_COMMAND autoreconf -f && ./configure
       CC=${CMAKE_C_COMPILER} CXX=${CMAKE_CXX_COMPILER}
+      LDFLAGS=-Wl,-rpath,${CMAKE_INSTALL_RPATH}
       --enable-threads
       --enable-64bit
       --disable-rpath
@@ -172,6 +180,7 @@ ExternalProject_Add(tdom
    SOURCE_DIR ${CMAKE_CURRENT_SOURCE_DIR}/tdom-${TDOM_REQ_VERSION}
    CONFIGURE_COMMAND autoreconf -f && ./configure
       CC=${CMAKE_C_COMPILER} CXX=${CMAKE_CXX_COMPILER}
+      LDFLAGS=-Wl,-rpath,${CMAKE_INSTALL_RPATH}
       --enable-threads
       --enable-64bit
       --disable-rpath
