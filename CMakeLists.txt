@@ -66,6 +66,7 @@ ExternalProject_Add(tcl
    CONFIGURE_COMMAND autoreconf -f && ./configure
       CC=${CMAKE_C_COMPILER} CXX=${CMAKE_CXX_COMPILER}
       LDFLAGS=-Wl,-rpath,${CMAKE_INSTALL_RPATH}
+      TCL_LIBRARY=
       --enable-threads
       --enable-shared
       --enable-64bit
@@ -84,6 +85,7 @@ ExternalProject_Add(tk
    CONFIGURE_COMMAND autoreconf -f && ./configure
       CC=${CMAKE_C_COMPILER} CXX=${CMAKE_CXX_COMPILER}
       LDFLAGS=-Wl,-rpath,${CMAKE_INSTALL_RPATH}
+      TCL_LIBRARY=${CMAKE_INSTALL_PREFIX}/TCL/lib
       --enable-threads
       --enable-shared
       --enable-64bit
@@ -107,6 +109,7 @@ ExternalProject_Add(tcltls
    CONFIGURE_COMMAND autoreconf -f && ./configure
       CC=${CMAKE_C_COMPILER} CXX=${CMAKE_CXX_COMPILER}
       LDFLAGS=-Wl,-rpath,${CMAKE_INSTALL_RPATH}
+      TCL_LIBRARY=${CMAKE_INSTALL_PREFIX}/TCL/lib
       --disable-rpath
       --prefix=${CMAKE_INSTALL_PREFIX}/TCL
       --with-tcl=${CMAKE_INSTALL_PREFIX}/TCL/lib
