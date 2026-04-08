@@ -1351,7 +1351,7 @@ proc Animator::PlayFile { { Filename "" } } {
 
             set opts {}
             switch $fmt {
-               mp4 {lappend opts -c:v libx264 -pix_fmt yuv420p}
+               mp4 {lappend opts -c:v libx264 -pix_fmt yuv420p -vf "pad=ceil(iw/2)*2:ceil(ih/2)*2:color=white"}
                gif {lappend opts -pix_fmt bgr8}
             }
 
