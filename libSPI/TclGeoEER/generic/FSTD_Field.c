@@ -1553,7 +1553,13 @@ int FSTD_FieldDefine(Tcl_Interp *Interp,TData *Field,int Objc,Tcl_Obj *CONST Obj
                   return(TCL_ERROR);
                }
 
-               if (Field->GRef->Grid[0]=='Z'&&Field->GRef->Grid[1]!='W' || Field->GRef->Grid[0]=='Y') {
+               if (Field->GRef->Grid[0]=='Y') {
+                  head=(TRPNHeader*)fieldAX->Head;
+                  Field->GRef->IG1=head->IG1;
+                  Field->GRef->IG2=head->IG2;
+                  Field->GRef->IG3=head->IG3;
+                  Field->GRef->IG4=head->IG4;
+               } else if (Field->GRef->Grid[0]=='Z' && Field->GRef->Grid[1]!='W' ) {
                   head=(TRPNHeader*)fieldAX->Head;
                   RPN_IntLock();
                   if (!Field->GRef->Ids)
